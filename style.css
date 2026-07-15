@@ -1,0 +1,722 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#0d0d0d;
+    color:white;
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+}
+
+/* Loading */
+
+#loading{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:9999;
+    animation:fadeOut 2.5s forwards;
+    animation-delay:2s;
+}
+
+#loading h1{
+    font-size:48px;
+    color:#ffd369;
+    font-family:'Cormorant Garamond',serif;
+}
+
+#loading p{
+    margin-top:15px;
+    letter-spacing:4px;
+    color:#ccc;
+}
+
+@keyframes fadeOut{
+    to{
+        opacity:0;
+        visibility:hidden;
+    }
+}
+
+/* Cover */
+
+.cover{
+    width:100%;
+    height:100vh;
+
+    background:
+    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.7)),
+    url("https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80");
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    position:relative;
+}
+
+.overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.25);
+}
+
+.content{
+    position:relative;
+    z-index:10;
+}
+
+.content h1{
+
+    font-size:70px;
+
+    font-family:'Cormorant Garamond',serif;
+
+    color:#ffd369;
+
+    margin-bottom:20px;
+
+    text-shadow:0 0 25px gold;
+}
+
+.content p{
+
+    font-size:20px;
+
+    color:#eee;
+
+    line-height:1.8;
+
+    margin-bottom:45px;
+}
+
+/* Button */
+
+button{
+
+    padding:18px 45px;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:#ffd369;
+
+    color:black;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.35s;
+
+    font-weight:bold;
+}
+
+button:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 0 35px gold;
+
+}
+
+/* Book */
+
+#book{
+
+    display:none;
+
+    max-width:900px;
+
+    margin:auto;
+
+    padding:100px 40px;
+
+}
+
+.page{
+
+    background:#161616;
+
+    border-radius:18px;
+
+    padding:70px;
+
+    margin-bottom:60px;
+
+    box-shadow:0 0 35px rgba(255,211,105,.15);
+
+}
+
+.page h1{
+
+    text-align:center;
+
+    color:#ffd369;
+
+    margin-bottom:35px;
+
+    font-size:50px;
+
+    font-family:'Cormorant Garamond',serif;
+
+}
+
+.page p{
+
+    font-size:20px;
+
+    line-height:2;
+
+    color:#eee;
+
+    text-align:justify;
+
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.content h1{
+
+font-size:45px;
+
+}
+
+.content p{
+
+font-size:17px;
+
+}
+
+.page{
+
+padding:35px;
+
+}
+
+.page h1{
+
+font-size:36px;
+
+}
+
+.page p{
+
+font-size:17px;
+
+}
+
+}
+
+.chapter-list{
+
+display:flex;
+
+flex-direction:column;
+
+gap:15px;
+
+margin-top:40px;
+
+}
+
+.chapter-list a{
+
+text-decoration:none;
+
+color:white;
+
+font-size:22px;
+
+padding:15px;
+
+border-radius:12px;
+
+transition:.3s;
+
+background:#202020;
+
+}
+
+.chapter-list a:hover{
+
+background:#ffd369;
+
+color:black;
+
+padding-left:30px;
+
+}
+
+.chapter-list hr{
+
+border:none;
+
+height:1px;
+
+background:#555;
+
+margin:15px 0;
+
+}
+
+/* ============================= */
+/* BOOK OPEN EFFECT */
+/* ============================= */
+
+.cover{
+
+    transform-origin:left center;
+
+    transition:1.3s ease;
+
+    transform-style:preserve-3d;
+
+    z-index:100;
+
+}
+
+.cover.open{
+
+    transform:
+    perspective(1800px)
+    rotateY(-95deg);
+
+    opacity:0;
+
+}
+
+/* bayangan */
+
+.cover::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    right:-10px;
+
+    width:25px;
+
+    height:100%;
+
+    background:rgba(0,0,0,.35);
+
+    filter:blur(10px);
+
+}
+
+/* isi buku */
+
+#book{
+
+    display:none;
+
+    animation:fadeBook 1s ease;
+
+}
+
+@keyframes fadeBook{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(50px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ========================= */
+/* SAKURA */
+/* ========================= */
+
+#petals{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+pointer-events:none;
+
+overflow:hidden;
+
+z-index:1;
+
+}
+
+.petal{
+
+position:absolute;
+
+top:-50px;
+
+width:15px;
+
+height:15px;
+
+background:#ffc0cb;
+
+border-radius:15px 0;
+
+opacity:.8;
+
+animation:fall linear forwards;
+
+}
+
+@keyframes fall{
+
+0%{
+
+transform:
+translateY(-30px)
+rotate(0deg);
+
+}
+
+100%{
+
+transform:
+translateY(120vh)
+rotate(720deg);
+
+}
+
+}
+
+
+
+/* ========================= */
+/* GOLD PARTICLES */
+/* ========================= */
+
+#particles{
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+pointer-events:none;
+
+overflow:hidden;
+
+z-index:0;
+
+}
+
+.star{
+
+position:absolute;
+
+width:3px;
+
+height:3px;
+
+border-radius:50%;
+
+background:gold;
+
+animation:twinkle 3s infinite;
+
+}
+
+@keyframes twinkle{
+
+0%{
+
+opacity:.1;
+
+transform:scale(.5);
+
+}
+
+50%{
+
+opacity:1;
+
+transform:scale(2);
+
+}
+
+100%{
+
+opacity:.1;
+
+transform:scale(.5);
+
+}
+
+}
+
+#musicBtn{
+
+position:fixed;
+
+bottom:30px;
+
+right:30px;
+
+background:#ffd369;
+
+border:none;
+
+padding:15px 20px;
+
+border-radius:50px;
+
+font-size:18px;
+
+cursor:pointer;
+
+z-index:999;
+
+box-shadow:0 0 20px rgba(0,0,0,.3);
+
+transition:.3s;
+
+}
+
+#musicBtn:hover{
+
+transform:scale(1.1);
+
+}
+
+/* ========================= */
+/* CHAPTER SUBTITLE */
+/* ========================= */
+
+.page h2{
+    text-align:center;
+    font-family:'Cormorant Garamond',serif;
+    font-size:30px;
+    color:#ddd;
+    margin-top:-20px;
+    margin-bottom:45px;
+    font-weight:400;
+    font-style:italic;
+}
+
+
+/* ========================= */
+/* QUOTES */
+/* ========================= */
+
+blockquote{
+    margin-top:45px;
+    padding:25px 30px;
+    border-left:4px solid #ffd369;
+    background:rgba(255,211,105,.07);
+    border-radius:0 12px 12px 0;
+    font-family:'Cormorant Garamond',serif;
+    font-size:22px;
+    line-height:1.7;
+    color:#ffd369;
+}
+
+
+/* ========================= */
+/* KEEP BOOK ABOVE EFFECTS */
+/* ========================= */
+
+#book{
+    position:relative;
+    z-index:10;
+}
+
+
+/* ========================= */
+/* APOLOGY PAGE */
+/* ========================= */
+
+#apology{
+    border:1px solid rgba(255,211,105,.25);
+}
+
+#apology h1{
+    font-size:60px;
+}
+
+#apology .signature{
+    margin-top:60px;
+    text-align:right;
+    font-family:'Cormorant Garamond',serif;
+    font-size:24px;
+    color:#ffd369;
+}
+
+
+/* ========================= */
+/* ENDING PAGE */
+/* ========================= */
+
+.ending-page{
+    min-height:70vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    text-align:center;
+}
+
+.ending-page p{
+    text-align:center;
+}
+
+.ending-page .signature{
+    margin-top:40px;
+    text-align:center;
+    color:#ffd369;
+}
+
+
+/* ========================= */
+/* TEXT SELECTION */
+/* ========================= */
+
+::selection{
+    background:#ffd369;
+    color:#111;
+}
+
+
+/* ========================= */
+/* SCROLLBAR */
+/* ========================= */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:#0d0d0d;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#ffd369;
+    border-radius:10px;
+}
+
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+@media(max-width:768px){
+
+    #book{
+        padding:70px 15px;
+    }
+
+    .page{
+        padding:35px 22px;
+        border-radius:14px;
+    }
+
+    .page h2{
+        font-size:24px;
+        margin-bottom:35px;
+    }
+
+    blockquote{
+        padding:20px;
+        font-size:19px;
+    }
+
+    #apology h1{
+        font-size:42px;
+    }
+
+    #musicBtn{
+        bottom:20px;
+        right:20px;
+        padding:12px 16px;
+        font-size:14px;
+    }
+
+}
+
+/* ========================= */
+/* BACK BUTTON */
+/* ========================= */
+
+#backBtn{
+    position:fixed;
+    bottom:30px;
+    left:30px;
+
+    background:#ffd369;
+    color:#111;
+
+    border:none;
+    padding:15px 22px;
+    border-radius:50px;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+    z-index:999;
+
+    box-shadow:0 0 20px rgba(0,0,0,.3);
+    transition:.3s;
+
+    display:none;
+}
+
+#backBtn:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 25px rgba(255,211,105,.5);
+}
+
+@media(max-width:768px){
+    #backBtn{
+        bottom:20px;
+        left:20px;
+        padding:12px 16px;
+        font-size:14px;
+    }
+}
